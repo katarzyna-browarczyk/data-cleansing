@@ -1,0 +1,84 @@
+# Wczytywanie danych
+dane <- read.csv('C:/Users/fabia/Downloads/Taste  Treasure baza klientów.csv', sep = ";", header = TRUE, stringsAsFactors = FALSE)
+install.packages("naniar")
+library(naniar)
+install.packages("ggplot2")
+library(ggplot2)
+
+# Wizualizacja braków danych
+vis_miss(dane, sort_miss = TRUE) + ggtitle("") + xlab("Zmienne") + ylab("Obserwacje")
+gg_miss_var(dane, show_pct = TRUE) +
+  ggtitle("Braki danych w zmiennych zbioru bfi") +
+  xlab("Zmienne") +
+  ylab("Procent braków") +
+  theme_classic()
+
+parametry <- apply(dane, 2, function(x) {
+  c(min = min(x, na.rm = TRUE), 
+    max = max(x, na.rm = TRUE), 
+    na_count = sum(is.na(x)))
+})
+
+# Zakładając, że kolumny x4, x8, x12, x13 mają braki danych
+rownames(parametry) <- c("min", "max", "braki danych")
+
+# Parametry - obliczanie liczby braków
+parametry
+liczba_braków <- sum(as.numeric(parametry[3, ]), na.rm = TRUE)
+liczba_braków
+
+# Liczba braków w całym zbiorze
+liczba_braków_c <- sum(is.na(dane))
+liczba_braków_c
+
+# Liczba komórek w zbiorze danych
+liczba_komórek <- nrow(dane) * ncol(dane)
+liczba_komórek
+
+# Procent braków danych
+procent_braków <- (liczba_braków/liczba_komórek)*100
+procent_braków
+
+# Liczba pełnych wierszy
+pełne_wiersze <- sum(complete.cases(dane)) 
+pełne_wiersze
+
+# Sprawdzanie klas zmiennych
+sapply(dane, class)  # Zmienna x4, x8, x12, x13 to zmienne ilościowe
+
+# Selekcja zmiennych liczbowych
+dane_num <- dane[sapply(dane, is.numeric)]
+
+#Obliczanie macierzy korelacji
+macierz_kor1 <- cor(dane_num)
+macierz_kor1
+macierz_kor2 <- cor(dane_num, use = "complete.obs")
+macierz_kor2
+
+macierz_kor <- cor(dane_num, use = "complete.obs", method = "pearson")
+macierz_kor
+install.packages("corrplot")
+library(corrplot)
+#wykres korelacji
+corrplot(macierz_kor, method = "square", type = "full", tl.col = "black")
+#wymiary macierzy korelacji
+dim(macierz_kor)
+#jeśli dane maja wyrazne zaleznosci liniowe i jest niewiele zmiennych,
+#imputacja regresja moze byc wystarczajaca
+install.packages("mice")
+library(mice)
+
+#Meotda PMM - na podstawie modelu regresji obliczana jest przewidywana wartość
+#(mean prediction) dla każdej obserwacji (w tym rowniez dla tych, ktore maja brakujące dane)
+#Dla każdej brakujacej wartosci, metoda PMM szuka obserwacji podobnych 
+#na podstawie przewidywanych wartości z modelu. Imputacja polega na tym, że dla każdej brakującej
+#wartości przypisywana jest wartość z najbardziej podobnej obserwacji
+
+dane_num_mids_pmm <- mice(dane_num, method = "pmm", m = 5)
+dane_num_pmm <- complete(dane_num_mids_pmm)
+dane_num_pmm
+dim(dane_num_pmm)
+summary(dane_num_pmm)
+
+summary(dane_num)
+
