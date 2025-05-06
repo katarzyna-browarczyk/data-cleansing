@@ -1,5 +1,5 @@
 # Wczytywanie danych
-dane <- read.csv('C:/Users/fabia/Downloads/Taste  Treasure baza klientów.csv', sep = ";", header = TRUE, stringsAsFactors = FALSE)
+dane <- read.csv('C:/Users/kasia/Downloads/Taste  Treasure baza klientów.csv', sep = ";", header = TRUE, stringsAsFactors = FALSE)
 install.packages("naniar")
 library(naniar)
 install.packages("ggplot2")
