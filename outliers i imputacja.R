@@ -1,5 +1,5 @@
 ########################################wczytywanie danych#########################################
-dane <- read.csv('/Users/smodrzak/Desktop/data mining/projekt/BAZA DANYCH/dane.csv',  sep = ";", header = TRUE, stringsAsFactors = FALSE)
+dane <- read.csv('/Users/kasia/Desktop/data mining/projekt/BAZA DANYCH/dane.csv',  sep = ";", header = TRUE, stringsAsFactors = FALSE)
 #biblioteki
 install.packages("ggplot2")
 library(ggplot2)
@@ -157,10 +157,10 @@ dane_final[names(dane_num_pmm)] <- dane_num_pmm
 
 # Zapis do pliku Excel z polskimi znakami
 library(openxlsx)
-write.xlsx(dane_final, "/Users/smodrzak/Desktop/data mining/projekt/BAZA DANYCH/dane_po_imputacji.xlsx", 
+write.xlsx(dane_final, "/Users/kasia/Desktop/data mining/projekt/BAZA DANYCH/dane_po_imputacji.xlsx", 
            asTable = TRUE)
 ###########################################WCZYTYWANIE#DANYCH#######################################
-dane <- read_excel('/Users/smodrzak/Desktop/data mining/projekt/BAZA DANYCH/dane_po_imputacji.xlsx')
+dane <- read_excel('/Users/kasia/Desktop/data mining/projekt/BAZA DANYCH/dane_po_imputacji.xlsx')
 #R nie czytal nie których braków danych w tekstach, więc usuwamy spacje z początku
 #i końca tekstu w kolumnach tekstowych w naszym zbiorze
 #danych oraz zamieniamy puste ciągi na wartości NA, 
