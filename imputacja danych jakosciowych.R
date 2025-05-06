@@ -3,7 +3,7 @@ library(readxl)
 library(openxlsx)
 
 # Wczytanie pliku Excel
-dane <- read_excel("C:/Users/fabia/OneDrive/Pulpit/behovioral finance/1_imputed.xlsx")
+dane <- read_excel("C:/Users/kasia/OneDrive/Pulpit/behovioral finance/1_imputed.xlsx")
 
 # Konwersja zmiennych
 dane$X2 <- as.factor(dane$X2)
