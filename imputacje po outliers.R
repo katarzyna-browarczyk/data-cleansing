@@ -10,7 +10,7 @@ library(readxl)
 library(openxlsx)
 
 # Wczytaj dane
-dane <- read.xlsx('/Users/smodrzak/Desktop/data mining/projekt/BAZA DANYCH/dane_po_outliers.xlsx')
+dane <- read.xlsx('/Users/kasia/Desktop/data mining/projekt/BAZA DANYCH/dane_po_outliers.xlsx')
 
 # Czyszczenie tekstów – spacje, puste ciągi
 dane <- dane %>%
@@ -45,13 +45,13 @@ dane$X1[is.na(dane$X1)] <- median(dane$X1, na.rm = TRUE)
 sum(is.na(dane$X1))  
 
 # Zapis do Excela po imputacji zmiennych ilościowych
-write.xlsx(dane, file = "/Users/smodrzak/Desktop/data mining/projekt/BAZA DANYCH/dane_po_PMM.xlsx", asTable = TRUE)
+write.xlsx(dane, file = "/Users/kasia/Desktop/data mining/projekt/BAZA DANYCH/dane_po_PMM.xlsx", asTable = TRUE)
 
 
 ##########################IMPUTACJA ZMIENNYCH JAKOŚCIOWYCH#############################
 
 # Wczytaj dane z pliku po imputacji ilościowej
-dane <- read.xlsx("/Users/smodrzak/Desktop/data mining/projekt/BAZA DANYCH/dane_po_PMM.xlsx")
+dane <- read.xlsx("/Users/kasia/Desktop/data mining/projekt/BAZA DANYCH/dane_po_PMM.xlsx")
 
 # Konwersja zmiennych
 dane$X2 <- as.factor(dane$X2)
@@ -99,7 +99,7 @@ for (target_group in age_groups) {
 }
 
 # Zapis końcowy po imputacji jakościowych
-write.xlsx(dane, file = "/Users/smodrzak/Desktop/data mining/projekt/BAZA DANYCH/dane_po_imputacji.xlsx", asTable = TRUE)
+write.xlsx(dane, file = "/Users/kasia/Desktop/data mining/projekt/BAZA DANYCH/dane_po_imputacji.xlsx", asTable = TRUE)
 
 # (Opcjonalnie) Sprawdzenie braków
 print(sapply(dane, function(x) sum(is.na(x))))
